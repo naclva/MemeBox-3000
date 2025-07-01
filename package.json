@@ -1,0 +1,19 @@
+{
+  "name": "memebox-3000",
+  "version": "1.0.0",
+  "description": "A retro Y2K-themed meme generator web app with Windows 98 UI",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'No build step required'",
+    "start": "node -e \"console.log('Use vercel dev for local development')\""
+  },
+  "keywords": ["meme", "generator", "y2k", "retro", "windows98", "api", "reddit"],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  },
+  "engines": {
+    "node": ">=14.x"
+  }
+}
