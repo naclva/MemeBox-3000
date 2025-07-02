@@ -11,6 +11,7 @@ function getRandomSubreddit() {
     return subreddits[Math.floor(Math.random() * subreddits.length)];
 }
 
+// =================== UI UPDATE FUNCTIONS START ===================
 function showSpinner() {
     spinner.style.display = "block";
     memeImage.style.display = "none";
@@ -26,7 +27,9 @@ function setMemeDetails({ url, title, author }) {
     memeTitle.textContent = title || "Untitled Meme";
     memeAuthor.textContent = author ? `Meme by: ${author}` : "";
 }
+// =================== UI UPDATE FUNCTIONS END ===================
 
+// =================== ERROR HANDLING START ===================
 function showError() {
     memeTitle.textContent = "Oops! Failed to fetch meme.";
     memeAuthor.textContent = "Please try again later.";
@@ -35,7 +38,9 @@ function showError() {
     memeImage.alt = "Error loading meme";
     hideSpinner();
 }
+// =================== ERROR HANDLING END ===================
 
+// =================== MEME FETCH LOGIC START ===================
 function fetchMeme() {
     showSpinner();
     memeTitle.textContent = "Loading...";
@@ -44,7 +49,7 @@ function fetchMeme() {
     // Random subreddit for variety
     const subreddit = getRandomSubreddit();
     const cacheBuster = `?t=${Date.now()}`;
-    
+
     // Updated API endpoint for Vercel
     fetch(`/gimme/${subreddit}${cacheBuster}`)
         .then((response) => {
@@ -56,7 +61,7 @@ function fetchMeme() {
             if (data.error) {
                 throw new Error(data.error);
             }
-            
+
             memeImage.onload = () => {
                 setMemeDetails(data);
                 hideSpinner();
@@ -69,6 +74,7 @@ function fetchMeme() {
             showError();
         });
 }
+// =================== MEME FETCH LOGIC END ===================
 
 generateMemeBtn.addEventListener("click", fetchMeme);
 

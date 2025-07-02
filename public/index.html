@@ -8,72 +8,261 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <title>MemeBox 3000</title>
+
+    <!-- =================== FAVICON LINKS START =================== -->
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="MemeBox-3000" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+    <!-- =================== FAVICON LINKS END =================== -->
+
     <style>
+      /* Mobile First Base Styles */
       html, body {
         height: 100vh;
+        height: 100dvh; /* Dynamic viewport height for mobile */
         margin: 0;
         padding: 0;
         font-family: 'VT323', monospace;
         overflow: hidden;
+        background: #c0c0c0;
       }
+      
       .container {
         height: 100%;
-        padding: 0;
-        margin-right: 5px;
-      }
-      .meme-title {
-        font-size: 20px;
-        text-align: center;
-      }
-      .window.meme-generator {
-        height: 100%;
-        width: 100%;
-        margin: 0;
+        padding: 6px;
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
       }
-      .window-body {
-        flex-grow: 1;
+      
+      .window.meme-generator {
+        flex: 1;
         display: flex;
         flex-direction: column;
         min-height: 0;
-        width: 100%;
-        box-sizing: border-box;
+        max-height: 100%;
       }
+      
+      .title-bar-text {
+        font-size: 12px !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      
+      .window-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        padding: 8px;
+        gap: 8px;
+      }
+      
+      .meme-title {
+        font-size: 16px;
+        text-align: center;
+        margin: 0;
+        padding: 4px;
+        word-wrap: break-word;
+        line-height: 1.2;
+        min-height: 20px;
+      }
+      
+      .meme-container {
+        flex: 1;
+        min-height: 200px;
+        position: relative;
+      }
+      
       .sunken-panel {
-        flex-grow: 1;
+        height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: 0;
-        padding: 2px;
+        padding: 4px;
+        box-sizing: border-box;
+        position: relative;
+        overflow: hidden;
       }
+      
       .meme-generator img {
         max-width: 100%;
         max-height: 100%;
+        width: auto;
+        height: auto;
         object-fit: contain;
         image-rendering: pixelated;
-      }
-
-      .generate-meme-btn {
         display: block;
-        width: 20%;
-        height: 48px;
-        margin: 10px auto;
-        font-size: 22px;
-        flex-shrink: 0;
       }
+      
       .spinner {
-        width: 56px;
-        height: 56px;
-        border: 6px solid #e0e0e0;
+        width: 32px;
+        height: 32px;
+        border: 3px solid #e0e0e0;
         border-top-color: #5a5a5a;
         border-radius: 50%;
         animation: spin 1s linear infinite;
       }
+      
       @keyframes spin {
         to {
           transform: rotate(360deg);
+        }
+      }
+      
+      .status-bar {
+        flex-shrink: 0;
+        min-height: 24px;
+        margin: 0;
+      }
+      
+      .meme-author {
+        font-size: 11px;
+        margin: 0;
+        padding: 2px 4px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      
+      .generate-meme-btn {
+        flex-shrink: 0;
+        width: 100%;
+        height: 36px;
+        font-size: 16px;
+        margin: 0;
+        touch-action: manipulation; /* Better touch response */
+      }
+      
+      /* Tablet Styles */
+      @media (min-width: 480px) {
+        .container {
+          padding: 1px;
+        }
+        
+        .title-bar-text {
+          font-size: 20px !important;
+        }
+        
+        .meme-title {
+          font-size: 25px;
+          padding: 8px;
+        }
+        
+        .window-body {
+          padding: 12px;
+          gap: 12px;
+        }
+        
+        .meme-container {
+          min-height: 300px;
+        }
+        
+        .sunken-panel {
+          padding: 8px;
+        }
+        
+        .spinner {
+          width: 40px;
+          height: 40px;
+          border-width: 4px;
+        }
+        
+        .generate-meme-btn {
+          height: 40px;
+          font-size: 18px;
+          max-width: 300px;
+          margin: 0 auto;
+        }
+        
+        .meme-author {
+          font-size: 12px;
+          padding: 4px 8px;
+        }
+      }
+      
+      /* Desktop Styles */
+      @media (min-width: 768px) {
+        .title-bar-text {
+          font-size: 20px !important;
+        }
+        
+        .meme-title {
+          font-size: 20px;
+          padding: 12px;
+        }
+        
+        .window-body {
+          padding: 16px;
+          gap: 16px;
+        }
+        
+        .meme-container {
+          min-height: 400px;
+        }
+        
+        .sunken-panel {
+          padding: 12px;
+        }
+        
+        .spinner {
+          width: 56px;
+          height: 56px;
+          border-width: 6px;
+        }
+        
+        .generate-meme-btn {
+          height: 48px;
+          font-size: 22px;
+          max-width: 250px;
+        }
+        
+        .meme-author {
+          font-size: 13px;
+          padding: 6px 12px;
+        }
+      }
+      
+      /* Landscape Mobile Orientation */
+      @media (max-height: 500px) and (orientation: landscape) {
+        .meme-title {
+          font-size: 14px;
+          padding: 4px;
+          min-height: 16px;
+        }
+        
+        .window-body {
+          gap: 6px;
+          padding: 6px;
+        }
+        
+        .meme-container {
+          min-height: 150px;
+        }
+        
+        .generate-meme-btn {
+          height: 32px;
+          font-size: 14px;
+        }
+      }
+      
+      /* High DPI Displays */
+      @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        .meme-generator img {
+          image-rendering: -webkit-optimize-contrast;
+          image-rendering: crisp-edges;
+        }
+      }
+      
+      /* Accessibility improvements */
+      @media (prefers-reduced-motion: reduce) {
+        .spinner {
+          animation: none;
+          border-top-color: #5a5a5a;
         }
       }
     </style>
@@ -82,7 +271,7 @@
     <div class="container">
         <div class="window meme-generator">
             <div class="title-bar">
-                <div class="title-bar-text" style="font-size: 15px;">👽 MemeBox 3000</div>
+                <div class="title-bar-text">👽 MemeBox 3000</div>
                 <div class="title-bar-controls">
                     <button aria-label="Minimize"></button>
                     <button aria-label="Maximize"></button>
@@ -91,9 +280,11 @@
             </div>
             <div class="window-body">
                 <p class="meme-title">Loading...</p>
-                <div class="sunken-panel">
-                    <div class="spinner" role="status" aria-live="polite" aria-label="Loading meme"></div>
-                    <img src="" alt="A randomly generated meme" style="display: none;">
+                <div class="meme-container">
+                    <div class="sunken-panel">
+                        <div class="spinner" role="status" aria-live="polite" aria-label="Loading meme"></div>
+                        <img src="" alt="A randomly generated meme" style="display: none;">
+                    </div>
                 </div>
                 <div class="status-bar">
                     <p class="meme-author status-bar-field"></p>
@@ -101,7 +292,7 @@
                 <button class="generate-meme-btn">New Meme</button>
             </div>
         </div>
-  </div>
+    </div>
   <script src="code.js"></script>
 </body>
 </html>

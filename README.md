@@ -88,6 +88,8 @@ meme/
 ├── api/
 │   └── gimme.js           # Vercel serverless function for memes
 │
+├── favicon
+│
 ├── public/
 │   ├── index.html        
 │   ├── code.js            
